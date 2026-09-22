@@ -1,6 +1,6 @@
 # TsukiVox Official Website
 
-TsukiVox 官方产品网站。以“把舞台戴在头上”为核心叙事，通过 WebGL 星空、音频响应、滚动转场和未来 KTV 包厢视觉，介绍面向 Meta Quest 3 的沉浸式单人 VR K歌体验。
+TsukiVox 官方产品网站。以“让你的声音，拥有一整个宇宙”为核心叙事，通过原创月亮主视觉、编辑式大字排版、章节导航、滚动转场和未来 KTV 包厢视觉，介绍面向 Meta Quest 3 的沉浸式单人 VR K歌体验。
 
 ## 技术栈
 
@@ -28,7 +28,10 @@ npm run build
 - PC 与移动端自适应，移动端自动降低 WebGL 粒子密度和渲染精度
 - 简体中文 / English 双语切换
 - 默认静音，用户可主动开启轻量环境声音
-- `prefers-reduced-motion` 动效降级
+- `prefers-reduced-motion` 动效降级；WebGL 不可用时仍完整展示页面
+- 章节进度导航、逐行显现的宣言、随滚动展开的包厢场景
+- 可切换包厢热点、四档预设视觉模拟、可展开的路线图
+- 原生 dialog 测试弹窗，支持键盘关闭和焦点管理
 - 加入测试入口与 GitHub 申请模板
 - Open Graph / X 社交分享卡片
 
@@ -37,3 +40,9 @@ npm run build
 官网当前内容对应 TsukiVox V0.78：Quest 3 原生单人体验、实时麦克风返听、四档人声预设、头显内搜索点歌、本地下载缓存、播放队列和空间化控制。
 
 TsukiVox 是独立项目，与 Meta、Bilibili 无隶属或合作关系。
+
+## 视觉与动效
+
+新版借鉴 Pear 的编辑式排版、细线网格与章节叙事，使用 TsukiVox 自有品牌文案和原创主视觉，没有复用 Pear 的代码、字体或图片。主视觉位于 `public/assets/tsukivox-moon.webp`。
+
+网页预设为视觉模拟，环境音不代表应用内实际麦克风返听效果。浏览器无需麦克风权限。

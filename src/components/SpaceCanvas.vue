@@ -16,12 +16,24 @@ onMounted(() => {
   const compact = window.matchMedia('(max-width: 760px)').matches
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 80)
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas.value,
-    alpha: true,
-    antialias: !compact,
-    powerPreference: 'high-performance'
-  })
+  const context = canvas.value.getContext('webgl2', { alpha: true, antialias: !compact, powerPreference: 'low-power' })
+  if (!context) {
+    canvas.value.hidden = true
+    return
+  }
+  let renderer: THREE.WebGLRenderer
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas: canvas.value,
+      context,
+      alpha: true,
+      antialias: !compact,
+      powerPreference: 'low-power'
+    })
+  } catch {
+    canvas.value.hidden = true
+    return
+  }
   const clock = new THREE.Clock()
   const world = new THREE.Group()
   const rings = new THREE.Group()
@@ -65,10 +77,10 @@ onMounted(() => {
     return points
   }
 
-  const cyanStars = createStars(compact ? 520 : 1200, 0x66e5ff, 16, compact ? 0.025 : 0.019)
-  const pinkStars = createStars(compact ? 150 : 420, 0xff5fd9, 11, compact ? 0.032 : 0.024)
+  const cyanStars = createStars(compact ? 520 : 1200, 0xc9daf4, 16, compact ? 0.025 : 0.019)
+  const pinkStars = createStars(compact ? 150 : 420, 0xd7ddb9, 11, compact ? 0.032 : 0.024)
 
-  const ringPalette = [0x4bdcff, 0x876cff, 0xff5ad8, 0xf2c477]
+  const ringPalette = [0x86a5d9, 0xc0cddd, 0xede5cc, 0xc6ca99]
   ringPalette.forEach((color, index) => {
     const points = Array.from({ length: 180 }, (_, pointIndex) => {
       const angle = (pointIndex / 179) * Math.PI * 2
@@ -92,7 +104,7 @@ onMounted(() => {
     disposables.push(geometry, material)
   })
 
-  const waveColors = [0x5de9ff, 0xff59dc, 0x9e75ff]
+  const waveColors = [0xc8d9ee, 0xcbd6bd, 0x779ddd]
   waveColors.forEach((color, waveIndex) => {
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(220 * 3), 3))
@@ -128,7 +140,7 @@ onMounted(() => {
 
   const resize = () => {
     const width = window.innerWidth
-    const height = window.innerHeight
+    const height = canvas.value?.parentElement?.clientHeight || window.innerHeight
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, compact ? 1.25 : 1.7))
     renderer.setSize(width, height, false)
     camera.aspect = width / height
@@ -146,6 +158,10 @@ onMounted(() => {
   }
 
   const render = () => {
+    if (document.hidden || window.scrollY > window.innerHeight * 1.4) {
+      animationFrame = window.requestAnimationFrame(render)
+      return
+    }
     const elapsed = clock.getElapsedTime()
     pointer.lerp(pointerTarget, reducedMotion ? 0.025 : 0.045)
 
@@ -161,7 +177,7 @@ onMounted(() => {
     camera.position.x += (pointer.x * 0.16 - camera.position.x) * 0.025
     camera.position.y += (-pointer.y * 0.1 - camera.position.y) * 0.025
     renderer.render(scene, camera)
-    animationFrame = window.requestAnimationFrame(render)
+    if (!reducedMotion) animationFrame = window.requestAnimationFrame(render)
   }
 
   resize()

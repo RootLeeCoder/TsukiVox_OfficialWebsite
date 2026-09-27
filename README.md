@@ -33,6 +33,13 @@ npm test
 
 参考 [Pear](https://pear.no/) 的固定舞台与连续滚动叙事：滚轮推进画面内部的转场，每段视觉从上一段的元素接续产生。Pear 作者公开介绍了固定画布、滚动映射影片帧以及独立 DOM 字幕的实现；本项目以原创图像、CSS 遮罩、GSAP 与 Canvas 实时绘制实现自己的转场，没有复用 Pear 的影片、图片、代码或字体。
 
-主视觉位于 `public/assets/tsukivox-moon.webp`；包厢概念视觉位于 `public/assets/tsukivox-hero.webp`。网页预设与声波为视觉模拟，环境音不代表应用内实际麦克风返听效果。浏览器无需麦克风权限。
+官网视觉与 [TsukiVox 项目源码](https://github.com/RootLeeCoder/TsukiVox) 对齐：使用项目实际的月夜主题色、圆角平板主页、包厢几何和原有品牌字标。首屏与包厢图由 Unity 场景数据离线渲染，替换了之前的概念插画；保留包厢展开、平板折叠、声波聚合的连续滚动转场。
+
+来源、渲染方法与限制见 [产品视觉来源](docs/product-visual-source.md)。场景图不是 Quest 实机截图；网页预设与声波为视觉模拟，环境音不代表应用内实际麦克风返听效果，浏览器无需麦克风权限。
 
 TsukiVox 是独立项目，与 Meta、Bilibili 无隶属或合作关系。
+
+
+## 发布
+
+GitHub Pages 保留手动触发，本次不会自动部署。

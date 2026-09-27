@@ -4,7 +4,7 @@
     <div class="grain" aria-hidden="true"></div>
     <div class="progress" :style="{ transform: `scaleX(${scrollProgress})` }" aria-hidden="true"></div>
     <header class="site-header">
-      <a href="#top" class="brand" aria-label="TsukiVox" @click.prevent="navigate(0)">TsukiVox</a>
+      <a href="#top" class="brand" aria-label="TsukiVox" @click.prevent="navigate(0)">Tsuki<span>Vox</span><sup>VR</sup></a>
       <nav class="desktop-nav" :aria-label="zh ? '主要导航' : 'Main navigation'"><a v-for="(chapter, index) in chapters.slice(1)" :key="chapter.id" :href="`#${chapter.id}`" @click.prevent="navigate(index + 1)"><small>0{{ index + 1 }}</small>{{ chapter.label }}</a></nav>
       <div class="header-actions">
         <button class="sound-toggle" :aria-label="soundActive ? t.common.soundOff : t.common.soundOn" :aria-pressed="soundActive" @click="toggleSound"><span class="sound-bars" aria-hidden="true"><i v-for="n in 4" :key="n"></i></span></button>
@@ -19,7 +19,7 @@
       <ScrollStory ref="story" :locale="locale" :selected-preset="selectedPreset" @progress="scrollProgress = $event" @scene="activeChapter = $event" @join="openJoin" @preset="selectPreset" />
       <section id="product-notes" class="product-notes">
         <div class="section-label"><span>AFTER THE ENCORE / TSUKIVOX</span><a href="#top" @click.prevent="navigate(0)">{{ zh ? '重看演出' : 'REPLAY THE FILM' }} ↗</a></div>
-        <div class="notes-heading"><h2>{{ zh ? '舞台之后。' : 'Behind the stage.' }}</h2><p>{{ t.manifesto.body }}</p></div>
+        <div class="notes-heading"><h2>{{ zh ? '在包厢里，随心开唱。' : 'Make yourself at home.' }}</h2><p>{{ t.manifesto.body }}</p></div>
         <div class="feature-notes"><article v-for="card in t.experience.cards" :key="card.index"><span>0{{ Number(card.index) }}</span><h3>{{ card.title }}</h3><p>{{ card.body }}</p></article></div>
         <div id="roadmap" class="roadmap"><h2>{{ zh ? '下一章节。' : 'The next chapter.' }}</h2><details v-for="item in t.roadmap.items" :key="item.version"><summary><span>{{ item.version }}</span><h3>{{ item.title }}</h3><i>+</i></summary><p>{{ item.body }}</p></details></div>
         <footer><span>© {{ currentYear }} ROOTLEECODER</span><p>{{ t.footer.disclaimer }}</p><a href="https://github.com/RootLeeCoder/TsukiVox_OfficialWebsite" target="_blank" rel="noreferrer">GITHUB ↗</a></footer>

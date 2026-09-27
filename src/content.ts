@@ -87,8 +87,8 @@ export const content = {
       description: '大屏、沙发、茶几、灯带与手持道具共同构成一个真正有方位感的演唱空间。',
       points: [
         { label: '超宽演唱大屏', detail: '自动适配视频画面比例', x: '63%', y: '36%' },
-        { label: '月牙舞台装置', detail: '品牌灯光与声波视觉核心', x: '39%', y: '58%' },
-        { label: '茶几控制区', detail: '点歌、队列、人声与设置', x: '59%', y: '78%' }
+        { label: '月夜装置', detail: '月牙灯与暖色灯带，勾勒包厢轮廓', x: '76%', y: '53%' },
+        { label: '茶几控制区', detail: '点歌、队列、人声与设置', x: '53%', y: '64%' }
       ]
     },
     roadmap: {
@@ -202,8 +202,8 @@ export const content = {
       description: 'A giant screen, sofa, table, light strips and handheld props form a performance space with real direction and presence.',
       points: [
         { label: 'Ultra-wide screen', detail: 'Automatic video aspect fitting', x: '63%', y: '36%' },
-        { label: 'Crescent stage', detail: 'The visual heart of light and sound', x: '39%', y: '58%' },
-        { label: 'Table controls', detail: 'Search, queue, voice and settings', x: '59%', y: '78%' }
+        { label: 'Moonlit details', detail: 'Crescent lights and warm trim define the room', x: '76%', y: '53%' },
+        { label: 'Table controls', detail: 'Search, queue, voice and settings', x: '53%', y: '64%' }
       ]
     },
     roadmap: {

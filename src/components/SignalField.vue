@@ -43,11 +43,11 @@ const draw = () => {
       else context.lineTo(x, y)
     }
     const gradient = context.createLinearGradient(0, 0, width, height)
-    gradient.addColorStop(0, `rgba(142,193,249,${0.25 + offset * 0.3})`)
-    gradient.addColorStop(0.5, `rgba(236,228,192,${0.4 + offset * 0.5})`)
-    gradient.addColorStop(1, `rgba(171,183,236,${0.15 + offset * 0.4})`)
+    gradient.addColorStop(0, `rgba(0,97,128,${0.25 + offset * 0.3})`)
+    gradient.addColorStop(0.5, `rgba(15,23,35,${0.4 + offset * 0.5})`)
+    gradient.addColorStop(1, `rgba(0,119,148,${0.15 + offset * 0.4})`)
     context.strokeStyle = gradient
-    context.lineWidth = line % 4 === 0 ? 1.25 : 0.65
+    context.lineWidth = line % 4 === 0 ? 2.2 : 1.1
     context.stroke()
   }
 }

@@ -3,7 +3,7 @@
     <div ref="stage" class="story-stage" :data-scene="scene">
       <div class="stage-base"></div>
       <div class="opening-world" aria-hidden="true"><img :src="moonUrl" alt="" fetchpriority="high" /><div></div></div>
-      <div class="blue-world" aria-hidden="true"></div>
+      <div class="blue-world" aria-hidden="true"><div class="city-panel"></div><span class="sound-word">VOICE<br />ON.</span></div>
       <div class="portal-mask" aria-hidden="true">
         <div class="room-card"><img :src="roomUrl" alt="" /><div class="room-shadow"></div><div class="card-edge"></div></div>
       </div>
@@ -11,16 +11,17 @@
       <div class="signal-object" aria-hidden="true"><SignalField :progress="progress" :fold="signalFold" :strength="activePreset.glow" /></div>
       <div class="closing-iris" aria-hidden="true"></div>
       <div class="stage-rules" aria-hidden="true"><i></i><i></i><i></i><b>+</b><b>+</b></div>
+      <div class="opening-labels" aria-hidden="true"><span>SOLO PLAYER</span><strong>VR<br />KARAOKE</strong><small>TSUKIVOX / 01</small></div>
 
       <section class="film-copy opening-copy" :inert="scene !== 0" :aria-hidden="scene !== 0">
-        <p class="eyebrow">TSUKI / 月 — VOX / 声</p>
-        <h1><span class="word-line">{{ zh ? '把世界，' : 'Leave the' }}</span><span class="word-line"><em>{{ zh ? '留在外面。' : 'world outside.' }}</em></span></h1>
-        <p class="film-description">{{ zh ? '戴上头显。下一刻，只有你和你的声音。' : 'Headset on. Just you, and everything you want to sing.' }}</p>
+        <p class="eyebrow">META QUEST 3 / VR KARAOKE</p>
+        <h1><span class="word-line">{{ zh ? '你的主场。' : 'YOUR STAGE.' }}</span><span class="word-line"><em>{{ zh ? '现在开唱！' : 'SING IT LOUD!' }}</em></span></h1>
+        <p class="film-description">{{ zh ? '戴上 Quest 3，进入一个人的 VR K歌包厢。你的歌单，你来主唱。' : 'Your headset. Your playlist. Your private karaoke room. Take the mic.' }}</p>
         <button class="button" @click="emit('join')">{{ t.common.join }}<span>↗</span></button>
       </section>
-      <div class="threshold-copy" aria-hidden="true"><span>{{ zh ? '现实退场。' : 'Reality fades.' }}</span><em>{{ zh ? '你的舞台入场。' : 'Your stage begins.' }}</em></div>
+      <div class="threshold-copy" aria-hidden="true"><span>{{ zh ? '切换频道。' : 'SWITCH REALITY.' }}</span><em>{{ zh ? '进入你的主场。' : 'ENTER YOUR STAGE.' }}</em></div>
       <section class="film-copy room-copy" :inert="scene !== 1" :aria-hidden="scene !== 1">
-        <p class="eyebrow">01 / STEP INSIDE</p><h2><span class="word-line">{{ zh ? '这一整个房间，' : 'The whole room.' }}</span><span class="word-line"><em>{{ zh ? '只为你亮灯。' : 'Just for you.' }}</em></span></h2>
+        <p class="eyebrow">01 / STEP INSIDE</p><h2><span class="word-line">{{ zh ? '包厢已就位。' : 'ROOM READY.' }}</span><span class="word-line"><em>{{ zh ? '主唱，就是你。' : 'TAKE THE MIC.' }}</em></span></h2>
         <p class="film-description">{{ t.room.description }}</p>
       </section>
       <div class="room-interaction" :inert="scene !== 1" :aria-hidden="scene !== 1">
@@ -28,25 +29,25 @@
         <div class="film-caption"><span>0{{ selectedPoint + 1 }} / 03</span><p><strong>{{ t.room.points[selectedPoint].label }}</strong>{{ t.room.points[selectedPoint].detail }}</p><small>{{ zh ? '空间概念视觉' : 'CONCEPT VISUAL' }}</small></div>
       </div>
       <section class="film-copy control-copy" :inert="scene !== 2" :aria-hidden="scene !== 2">
-        <p class="eyebrow">02 / FROM SEARCH TO SING</p><h2><span class="word-line">{{ zh ? '伸手。点歌。' : 'Reach. Choose.' }}</span><span class="word-line"><em>{{ zh ? '轮到你开唱。' : 'Make it yours.' }}</em></span></h2>
+        <p class="eyebrow">02 / FROM SEARCH TO SING</p><h2><span class="word-line">{{ zh ? '点中你的' : 'PICK YOUR' }}</span><span class="word-line"><em>{{ zh ? '下一首心动。' : 'NEXT FAVOURITE.' }}</em></span></h2>
         <p class="film-description">{{ zh ? '搜索、下载、排队、播放。所有动作，都在头显内发生。' : 'Search, download, queue and play. Everything happens inside the headset.' }}</p>
         <div class="film-flow"><div v-for="step in t.flow.steps" :key="step.number"><span>{{ step.number }}</span><strong>{{ step.title }}</strong></div></div>
       </section>
       <div class="screen-caption" aria-hidden="true"><span>TSUKIVOX / YOUR CONTROL ROOM</span><span>QUEST → LOCAL</span></div>
       <section class="film-copy voice-copy" :inert="scene !== 3" :aria-hidden="scene !== 3">
-        <p class="eyebrow">03 / FEEL YOUR VOICE</p><h2><span class="word-line">{{ zh ? '声音，' : 'Your voice,' }}</span><span class="word-line"><em>{{ zh ? '让空间有了形状。' : 'shapes the room.' }}</em></span></h2>
+        <p class="eyebrow">03 / FEEL YOUR VOICE</p><h2><span class="word-line">{{ zh ? '你的声音，' : 'YOUR VOICE.' }}</span><span class="word-line"><em>{{ zh ? '自带主角感。' : 'YOUR SIGNATURE.' }}</em></span></h2>
       </section>
       <div class="voice-controls" :inert="scene !== 3" :aria-hidden="scene !== 3">
         <div class="film-presets" role="group" :aria-label="zh ? '人声预设' : 'Voice presets'"><button v-for="(preset, index) in t.audio.presets" :key="preset.code" :aria-pressed="selectedPreset === index" @click="emit('preset', index)"><span>0{{ index + 1 }} / {{ preset.code }}</span><strong>{{ preset.name }}</strong></button></div>
         <p aria-live="polite">{{ activePreset.detail }}<small>{{ zh ? '视觉模拟 · 环境音需主动开启' : 'VISUAL SIMULATION · SOUND OFF BY DEFAULT' }}</small></p>
       </div>
-      <div class="gather-copy" aria-hidden="true"><span>{{ zh ? '每一道回响，' : 'Every echo.' }}</span><em>{{ zh ? '最后都成为你。' : 'Entirely you.' }}</em></div>
+      <div class="gather-copy" aria-hidden="true"><span>{{ zh ? '把喜欢，' : 'TURN IT UP.' }}</span><em>{{ zh ? '唱成你的形状。' : 'MAKE IT YOURS.' }}</em></div>
       <section class="final-copy" :inert="scene !== 4" :aria-hidden="scene !== 4">
         <p class="eyebrow">04 / THE NEXT SONG IS YOURS</p><div class="final-word" aria-label="TsukiVox"><span>TsukiV</span><i>o</i><span>x</span></div>
-        <h2>{{ zh ? '下一首，留给你。' : 'The next song is yours.' }}</h2><button class="button" @click="emit('join')">{{ t.common.join }}<span>↗</span></button><p class="final-note">{{ t.join.availability }}</p>
+        <h2>{{ zh ? '下一首，轮到你了！' : 'YOUR NEXT SONG STARTS HERE.' }}</h2><button class="button" @click="emit('join')">{{ t.common.join }}<span>↗</span></button><p class="final-note">{{ t.join.availability }}</p>
       </section>
       <div class="film-hud"><span>{{ labels[scene] }}</span><div class="film-hud-line"><i :style="{ transform: `scaleX(${progress})` }"></i></div><span>{{ String(Math.round(progress * 100)).padStart(3, '0') }} / 100</span></div>
-      <button v-if="progress < 0.04" class="scroll-invitation" @click="goTo(1)">{{ zh ? '滚动，让舞台展开' : 'SCROLL TO UNFOLD' }}<span>↓</span></button>
+      <button v-if="progress < 0.04" class="scroll-invitation" @click="goTo(1)">{{ zh ? '向下滚动 / 开启主场' : 'SCROLL TO START' }}<span>↓</span></button>
     </div>
     <div v-if="reducedMotion" class="reduced-nav" aria-label="场景选择"><button v-for="(label, index) in labels" :key="index" :aria-pressed="scene === index" @click="goTo(index)">{{ label }}</button></div>
   </div>
@@ -73,8 +74,8 @@ const t = computed(() => content[props.locale as Locale])
 const activePreset = computed(() => t.value.audio.presets[props.selectedPreset])
 const labels = ['PROLOGUE', 'THE ROOM', 'YOUR CONTROL', 'VOICE LAB', 'YOUR NEXT SONG']
 const stops = [0, 0.33, 0.46, 0.645, 0.96]
-const moonUrl = `${import.meta.env.BASE_URL}assets/tsukivox-moon.webp`
-const roomUrl = `${import.meta.env.BASE_URL}assets/tsukivox-hero.webp`
+const moonUrl = `${import.meta.env.BASE_URL}assets/tsukivox-anime-city.webp`
+const roomUrl = `${import.meta.env.BASE_URL}assets/tsukivox-anime-room.webp`
 let context: gsap.Context | null = null
 let timeline: gsap.core.Timeline | null = null
 let trigger: ScrollTrigger | null = null
@@ -125,6 +126,7 @@ const setup = () => {
     tl.to('.opening-world img', { scale: 1.13, xPercent: -3, duration: 20, ease: 'none' }, 0)
       .to('.opening-copy .word-line', { yPercent: -140, x: -45, rotate: -4, opacity: 0, stagger: 1.1, duration: 9 }, 6)
       .to('.opening-copy .eyebrow, .opening-copy .film-description, .opening-copy .button', { y: -30, opacity: 0, duration: 6, stagger: 0.7 }, 7)
+      .to('.opening-labels', { x: 120, rotation: 12, autoAlpha: 0, duration: 7 }, 8)
       .to('.stage-rules i:nth-child(1)', { yPercent: -80, scaleX: 0.6, duration: 14 }, 8)
       .to('.portal-ring', { autoAlpha: 1, width: compact ? '48vmin' : '36vmin', height: compact ? '48vmin' : '36vmin', duration: 5 }, 10)
       .to('.portal-mask', { clipPath: compact ? 'circle(24vmin at 73% 42%)' : 'circle(18vmin at 73% 42%)', duration: 5 }, 10)
@@ -142,7 +144,9 @@ const setup = () => {
       .to('.room-copy', { xPercent: -45, rotate: -5, autoAlpha: 0, duration: 6 }, 35)
       .to('.room-interaction', { autoAlpha: 0, duration: 4 }, 35)
       .to('.blue-world', { opacity: 1, duration: 8 }, 35)
-      .to('.room-card', { scaleX: compact ? 0.84 : 0.52, scaleY: compact ? 0.30 : 0.54, xPercent: compact ? 0 : 22, yPercent: compact ? 20 : 2, rotationY: compact ? -7 : -22, rotationZ: compact ? -5 : -7, borderRadius: 22, duration: 9 }, 35)
+      .fromTo('.city-panel', { xPercent: 100, skewX: -12 }, { xPercent: 0, skewX: 0, duration: 10 }, 35)
+      .fromTo('.sound-word', { xPercent: 40, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 0.12, duration: 8 }, 51)
+      .to('.room-card', { scaleX: compact ? 0.84 : 0.52, scaleY: compact ? 0.30 : 0.54, xPercent: compact ? 0 : 22, yPercent: compact ? 20 : 2, rotationY: compact ? -7 : -22, rotationZ: compact ? -5 : -7, borderRadius: 3, duration: 9 }, 35)
       .to('.room-card img', { scale: 1, duration: 8 }, 35)
       .fromTo('.control-copy', { x: -90, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 5 }, 39)
       .fromTo('.film-flow > div', { y: 35, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.7, duration: 2 }, 40)
@@ -158,6 +162,7 @@ const setup = () => {
       .to('.voice-controls', { y: 85, autoAlpha: 0, duration: 5 }, 68)
       .to(state, { fold: 1, duration: 11, ease: 'power2.inOut' }, 68)
       .to('.signal-object', { rotation: 90, scale: 1.2, duration: 11 }, 68)
+      .to('.sound-word', { xPercent: -40, autoAlpha: 0, duration: 8 }, 68)
       .fromTo('.gather-copy', { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 4 }, 72)
       .to('.gather-copy', { y: -45, autoAlpha: 0, duration: 4 }, 80)
       .to('.signal-object', { scale: 3.8, rotation: 180, duration: 8 }, 79)
